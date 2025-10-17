@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Все статьи, по вашему запросу
+{% endblock %}
+
+{% block headers %}
+    <h1>Найденные статьи</h1>
+{% endblock %}
+
+{% block body %}
+    <div class="album py-5 bg-body-tertiary">
+        <div class="container">
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+                {% if error %}
+                    <p style="color: red;">{{ error }}</p>
+                {% endif %}
+
+                {% if articles %}
+                    {% for el in articles %}
+                    <div class="col">
+                        <div class="card shadow-sm">
+                            <img src="https://cdn.culture.ru/images/f0ce9123-691d-5417-b64c-566b0f3ac269">
+                            <div class="card-body">
+                                <p class="card-text">{{ el.title }}</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="btn-group">
+                                        <a href="/posts/{{ el.id }}" class="btn btn-secondary rounded-pill px-3">Детальнее</a>
+                                    </div>
+                                    <small class="text-body-secondary">{{ el.date.date() }}</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="container">
+                        <h1>По вашему запросу ничего не найдено</h1>
+                    </div>
+                {% endif %}
+
+            </div>
+        </div>
+    </div>
+{% endblock %}
